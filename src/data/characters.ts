@@ -1,4 +1,6 @@
-{
+import { JsonDataMapInterface } from '@/types/jsonData';
+
+export const characterData: JsonDataMapInterface = {
   "ウムラウト・トレマ": [
     {
       "種別": "ウムラウト・トレマ",
@@ -3541,4 +3543,4 @@
       "備考": ""
     }
   ]
-}
+} as const;

@@ -14,8 +14,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
 
-import { JSON_FILE_PATH } from '@/lib/const';
-import { fetchJson } from '@/lib/fetchJson';
+import { characterData } from '@/data/characters';
 
 import { JsonDataInterface, JsonDataMapInterface } from '@/types/jsonData';
 
@@ -30,8 +29,8 @@ const onSelectCategory = ({ category }: { category: string}) => {
   codes.value = data.value[category]
 }
 
-onMounted( async () => {
-  data.value = await fetchJson(JSON_FILE_PATH);
+onMounted(() => {
+  data.value =characterData;
 })
 
 watch(
