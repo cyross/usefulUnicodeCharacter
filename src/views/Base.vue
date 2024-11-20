@@ -26,7 +26,14 @@ const categories = ref<string[]>([])
 const codes = ref<string[]>([])
 
 const onSelectCategory = ({ category }: { category: string}) => {
-  codes.value = data.value[category]
+  const codesData = data.value[category];
+
+  if (typeof codesData === 'function') {
+    codes.value = codesData()
+  }
+  else {
+    codes.value = codesData
+  }
 }
 
 onMounted(() => {
