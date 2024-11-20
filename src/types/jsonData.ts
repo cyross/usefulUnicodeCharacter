@@ -1,3 +1,3 @@
 export interface JsonDataMapInterface {
-  [key: string]: string[]
+  [key: string]: string[] | (() => string[])
 }

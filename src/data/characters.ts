@@ -66,38 +66,20 @@ function getArabicLetters(): string[] {
   return letters;
 }
 
-// ハングルの配列を生成
-function generateHangul(): string[] {
-  const hangul: string[] = [];
+// 初声（Consonants）
+const hangulInitialConsonants = [
+  'ㄱ', 'ㄲ', 'ㄳ', 'ㄴ', 'ㄵ', 'ㄶ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㄺ', 'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ', 'ㅀ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅄ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'
+];
 
-  // 初声（Consonants）
-  const initialConsonants = [
-    'ㄱ', 'ㄲ', 'ㄳ', 'ㄴ', 'ㄵ', 'ㄶ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㄺ', 'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ', 'ㅀ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅄ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'
-  ];
+// 母音（Vowels）
+const hangulVowels = [
+  'ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ', 'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ'
+];
 
-  // 母音（Vowels）
-  const vowels = [
-    'ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ', 'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ'
-  ];
-
-  // 終声（Final Consonants）
-  const finalConsonants = [
-    '', 'ㄱ', 'ㄲ', 'ㄳ', 'ㄴ', 'ㄵ', 'ㄶ', 'ㄷ', 'ㄹ', 'ㄺ', 'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ', 'ㅀ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅄ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'
-  ];
-
-  // 基本ハングル（音節）を生成する
-  for (let initial of initialConsonants) {
-    for (let vowel of vowels) {
-      for (let final of finalConsonants) {
-        // ハングルの音節を合成
-        const hangulChar = initial + vowel + final;
-        hangul.push(hangulChar);
-      }
-    }
-  }
-
-  return hangul;
-}
+// 終声（Final Consonants）
+const hangulFinalConsonants = [
+  'ㄱ', 'ㄲ', 'ㄳ', 'ㄴ', 'ㄵ', 'ㄶ', 'ㄷ', 'ㄹ', 'ㄺ', 'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ', 'ㅀ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅄ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'
+];
 
 const ipaSymbols: string[] = [
   // 子音
@@ -123,7 +105,7 @@ const ipaSymbols: string[] = [
   "ʘ", "ǀ", "ǃ", "ǂ", "ǁ"
 ];
 
-const unitSymbols: string[] = [
+const unitSymbolsBase: string[] = [
   // 長さ (Length)
   "m", // メートル
   "cm", // センチメートル
@@ -396,6 +378,9 @@ const unitSymbolsMetricPondYardNonSI: string[] = [
   "mph",    // 時速マイル
 ];
 
+const getUnitSymbols = () =>
+  Array.from(new Set([...unitSymbolsBase, ...unitSymbolsUnicode, ...unitsMetricPondYard, ...unitSymbolsMetricPondYardNonSI]))
+
 // SI基本単位記号の配列
 const siBaseUnits: string[] = [
   'm',   // メートル
@@ -599,8 +584,10 @@ export const characterData: JsonDataMapInterface = {
     "Α","α","Β","β","Γ","γ","Δ","δ","Ε","ε","Ζ","ζ","Η","η","Θ","θ","Ι","ι","Κ","κ","Λ","λ","Μ","μ","Ν","ν","Ξ","ξ","Ο","ο","Π","π","Ρ","ρ","∑","σ","Τ","τ","Υ","υ","Φ","φ","Χ","χ","Ψ","ψ","Ω","ω",
   ],
   "リング符号付き": ringedCharacters,
-  "アラビア文字": getArabicLetters(),
-  "ハングル": generateHangul(),
+  "アラビア文字": getArabicLetters,
+  "ハングル(初声)": hangulInitialConsonants,
+  "ハングル(母音)": hangulVowels,
+  "ハングル(終声)": hangulFinalConsonants,
   "発音記号": ipaSymbols,
   "合字": ligaturesEnglish,
   "ルーン文字": [
@@ -611,7 +598,7 @@ export const characterData: JsonDataMapInterface = {
   ],
   "SI系単位": [...siBaseUnits, ...siPrefixes],
   "非SI系単位": nonSIUnits,
-  "単位記号": Array.from(new Set([...unitSymbols, ...unitSymbolsUnicode, ...unitsMetricPondYard, ...unitSymbolsMetricPondYardNonSI])),
+  "単位記号": getUnitSymbols,
   "数学記号": mathSymbols,
   "通貨単位": [...currencySymbolsAscii, ...currencySymbolsUnicode],
 } as const;
