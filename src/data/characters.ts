@@ -1,3 +1,17 @@
+const generateRange = (start: number, end: number): number[] => {
+  // startからendまでの範囲を生成
+  const array: number[] = [];
+  
+  for (let i = start; i <= end; i++) {
+    array.push(i);
+  }
+
+  return array;
+}
+
+const generateLetters = (start: number, end: number) =>
+    generateRange(start, end).map((code) => String.fromCharCode(code));
+
 // ラテン文字
 const latinCharacters = {
   "大文字": [
@@ -166,33 +180,27 @@ const ringedCharacters = {
   ]
 };
 
-const generateRange = (start: number, end: number): number[] => {
-  // startからendまでの範囲を生成
-  const array: number[] = [];
-  
-  for (let i = start; i <= end; i++) {
-    array.push(i);
-  }
-
-  return array;
-}
-
-const generateArabicLetters = (start: number, end: number) =>
-    generateRange(start, end).map((code) => String.fromCharCode(code));
-
+// アラビア文字
 const getArabicLetters = () => {
   return {
     // U+0600 to U+06FF (アラビア語基本文字)
-    "アラビア語基本文字": generateArabicLetters(0x0600, 0x06FF),
+    "アラビア語基本文字": generateLetters(0x0600, 0x06FF),
     // U+0750 to U+077F (アラビア語補助)
-    "アラビア語補助": generateArabicLetters(0x0750, 0x077F),
+    "アラビア語補助": generateLetters(0x0750, 0x077F),
     // U+08A0 to U+08FF (アラビア語補助-2)
-    "アラビア語補助-2": generateArabicLetters(0x08A0, 0x08FF),
+    "アラビア語補助-2": generateLetters(0x08A0, 0x08FF),
     // U+FB50 to U+FDFF (アラビア語合成文字)
-    "アラビア語合成文字": generateArabicLetters(0xFB50, 0xFDFF),
+    "アラビア語合成文字": generateLetters(0xFB50, 0xFDFF),
     // U+FE70 to U+FEFF (アラビア語合成文字-2)
-    "アラビア語合成文字-2": generateArabicLetters(0xFE70, 0xFEFF)
+    "アラビア語合成文字-2": generateLetters(0xFE70, 0xFEFF)
   };
+}
+
+// タイ文字
+const getThaiLetters = () => {
+  return {
+    "基本タイ文字": generateLetters(0x0E00, 0x0E7F),
+  }
 }
 
 // ハングル・初声（Consonants）
@@ -588,6 +596,7 @@ export const characterData = {
   "ギリシャ文字": greeceCharacters,
   "リング符号付き": ringedCharacters,
   "アラビア文字": getArabicLetters,
+  "タイ文字": getThaiLetters,
   "ハングル": hangulCharacters,
   "発音記号": ipaSymbols,
   "合字": ligaturesEnglish,
