@@ -1,10 +1,10 @@
 <template>
-  <div class="flex px-1 py-1">
-    <div class="bg-white text-4xl text-center w-12 py-2">
-      {{  char }}
-    </div>
-    <div class="bg-white text-center py-2 pl-1 pr-2">
-      <CopyButton :char="char" />
+  <div class="px-1 py-1">
+    <div class="flex bg-white px-2 py-2">
+      <div class="text-4xl text-center">{{  char }}</div>
+      <div class="text-center pl-2">
+        <CopyButton :char="char" />
+      </div>
     </div>
   </div>
 </template>

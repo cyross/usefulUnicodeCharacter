@@ -16,14 +16,14 @@ import { onMounted, ref, watch } from 'vue';
 
 import { characterData } from '@/data/characters';
 
-import { JsonDataInterface, JsonDataMapInterface } from '@/types/jsonData';
+import { JsonDataMapInterface } from '@/types/jsonData';
 
 import Categories from '@/components/Categories.vue';
 import Codes from '@/components/Codes.vue';
 
 const data = ref<JsonDataMapInterface>({})
 const categories = ref<string[]>([])
-const codes = ref<JsonDataInterface[]>([])
+const codes = ref<string[]>([])
 
 const onSelectCategory = ({ category }: { category: string}) => {
   codes.value = data.value[category]
