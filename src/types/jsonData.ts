@@ -1,3 +1,6 @@
+export interface JsonDataBySubCategory {
+  [subCategory: string]: string[]
+}
 export interface JsonDataMapInterface {
-  [key: string]: string[] | (() => string[])
+  [category: string]: JsonDataBySubCategory | (() => JsonDataBySubCategory)
 }
